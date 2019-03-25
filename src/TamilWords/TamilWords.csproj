@@ -115,6 +115,9 @@
     <None Include="font_maps\tscii">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="font_maps\UTF8">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="font_maps\vanavil">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
