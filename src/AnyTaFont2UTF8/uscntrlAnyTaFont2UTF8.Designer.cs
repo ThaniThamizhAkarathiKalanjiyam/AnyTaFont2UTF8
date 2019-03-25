@@ -106,9 +106,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(104, 284);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(302, 13);
+            this.label4.Size = new System.Drawing.Size(305, 13);
             this.label4.TabIndex = 11;
-            this.label4.Text = "https://thanithamizhakarathikalanjiyam.github.io/any_font2utf8";
+            this.label4.Text = "https://thanithamizhakarathikalanjiyam.github.io/anytafont2utf8";
             // 
             // btnFontType
             // 
