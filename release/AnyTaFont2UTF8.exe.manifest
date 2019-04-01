@@ -52,38 +52,38 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AnyTaFont2UTF8.exe" size="11776">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AnyTaFont2UTF8.exe" size="16384">
       <assemblyIdentity name="AnyTaFont2UTF8" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>+6wargvk5tRZNZ/jEhQT7rFmg7A=</dsig:DigestValue>
+        <dsig:DigestValue>K5OmQbclnxk2jxOBuNNoJkISZ70=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Enty.dll" size="12288">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Enty.dll" size="13312">
       <assemblyIdentity name="Enty" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>zhMZbf13YL7MIbRTk6d9xMRaQE8=</dsig:DigestValue>
+        <dsig:DigestValue>0NP+IsGqV4Boly+Dna2ugVZTOCk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TamilWordNLP.dll" size="25600">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TamilWordNLP.dll" size="27648">
       <assemblyIdentity name="TamilWordNLP" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>hpG0g9J+Xtgv1v1Y7J4rzyicXV0=</dsig:DigestValue>
+        <dsig:DigestValue>muu7WWZoD+5/wlXELs4YOVbes3g=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
