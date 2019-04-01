@@ -19,6 +19,11 @@ namespace AnyTaFont2UTF8
             
         }
 
+        private void frmAnyTaFont2UTF8_Load(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 1;
+        }
+
       
 
        
