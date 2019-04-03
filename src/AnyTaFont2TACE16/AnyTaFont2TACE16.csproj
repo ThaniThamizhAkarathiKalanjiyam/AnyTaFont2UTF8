@@ -104,6 +104,10 @@
       <DependentUpon>uscntrlAnyTaFont2TACE16.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="uscntrlUTF82TACE16Folder.resx">
+      <DependentUpon>uscntrlUTF82TACE16Folder.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -123,6 +127,12 @@
     </Compile>
     <Compile Include="uscntrlAnyTaFont2TACE16.Designer.cs">
       <DependentUpon>uscntrlAnyTaFont2TACE16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uscntrlUTF82TACE16Folder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uscntrlUTF82TACE16Folder.Designer.cs">
+      <DependentUpon>uscntrlUTF82TACE16Folder.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

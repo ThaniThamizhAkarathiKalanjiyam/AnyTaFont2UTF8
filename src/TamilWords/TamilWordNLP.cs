@@ -19,7 +19,7 @@ namespace TamilWords
         List<string> tamilWords = new List<string>();
         List<string> taEncryptedLetters = new List<string>();
 
-       
+
         // constants;
         int TA_ACCENT_LEN = 13;
         //12 + 1;
@@ -564,6 +564,24 @@ namespace TamilWords
 
             return ta_letters.ToArray();
         }
+
+        public string EncodeToUTF8Folder(string fileNameFontMap,
+            string UTF8FolderSrc,
+            string UTF8FolderDesti)
+        {
+            string[] files = Directory.GetFiles(UTF8FolderSrc);
+
+            foreach(string file in files)
+            {
+                string fileContent = File.ReadAllText(file);
+
+                File.WriteAllText(UTF8FolderDesti + "\\" + Path.GetFileName(file),
+                     EncodeToUTF8(fileNameFontMap,fileContent));
+            }
+
+            return "Done";
+        }
+
         public string EncodeToUTF8(string fileNameFontMap, string inputContent)
         {
             fileNameFontMap = fontDirectories + fileNameFontMap;
@@ -987,9 +1005,9 @@ namespace TamilWords
             string[] splitedtext = inputstring.Split(' ');
             StringBuilder stb = new StringBuilder();
 
-            foreach(string singleWord in splitedtext)
+            foreach (string singleWord in splitedtext)
             {
-                stb.Append(EncodeToUTF8AutoSingle(singleWord)+" ");
+                stb.Append(EncodeToUTF8AutoSingle(singleWord) + " ");
             }
 
             return stb.ToString();
@@ -1008,7 +1026,7 @@ namespace TamilWords
 
             bool a, b;
             foreach (string fontNamesLoc in getAvailableFontConversions())
-            {                
+            {
                 correctWords = EncodeToUTF8(fontNamesLoc, inputstring);
                 convertedWordIsRight = CheckTaFirstAndLastCharCorrect(correctWords,
                 out a, out b);
@@ -1024,7 +1042,7 @@ namespace TamilWords
 
         public string DetectFontType(string inputstring)
         {
-            if (inputstring != "" && inputstring.Length > 0 )
+            if (inputstring != "" && inputstring.Length > 0)
             {
                 string getFirstWord = inputstring.Split('\n')[0].Split(' ')[0].Trim();
                 getUTFConvertedWord(getFirstWord);
