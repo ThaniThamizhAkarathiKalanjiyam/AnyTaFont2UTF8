@@ -32,8 +32,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.btnLanSelect = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btnSettings = new System.Windows.Forms.Button();
+            this.contextMenuSettings = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.hIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tamilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,7 +49,7 @@
             this.manageMacrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip1.SuspendLayout();
+            this.contextMenuSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -61,6 +61,9 @@
             this.button1.Size = new System.Drawing.Size(29, 30);
             this.button1.TabIndex = 0;
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button1_MouseMove);
+            this.button1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button1_MouseDown);
+            this.button1.MouseEnter += new System.EventHandler(this.button1_MouseEnter);
             // 
             // btnLanSelect
             // 
@@ -82,21 +85,22 @@
             this.button3.TabIndex = 2;
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btnSettings
             // 
-            this.button4.AutoSize = true;
-            this.button4.ContextMenuStrip = this.contextMenuStrip1;
-            this.button4.Image = global::Tace16TamilKeyboard.Properties.Resources.settings;
-            this.button4.Location = new System.Drawing.Point(92, 2);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(29, 32);
-            this.button4.TabIndex = 3;
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.btnSettings.AutoSize = true;
+            this.btnSettings.ContextMenuStrip = this.contextMenuSettings;
+            this.btnSettings.Image = global::Tace16TamilKeyboard.Properties.Resources.settings;
+            this.btnSettings.Location = new System.Drawing.Point(92, 2);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(29, 32);
+            this.btnSettings.TabIndex = 3;
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.button4_Click);
+            this.btnSettings.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnSettings_MouseClick);
             // 
-            // contextMenuStrip1
+            // contextMenuSettings
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuSettings.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.hIToolStripMenuItem,
             this.schemesToolStripMenuItem,
             this.suggestedFontToolStripMenuItem,
@@ -106,8 +110,8 @@
             this.manageMacrosToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.helpToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(151, 202);
+            this.contextMenuSettings.Name = "contextMenuStrip1";
+            this.contextMenuSettings.Size = new System.Drawing.Size(151, 202);
             // 
             // hIToolStripMenuItem
             // 
@@ -216,16 +220,16 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(124, 35);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.btnLanSelect);
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "IsaiyiniKeyBoard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "TACE KEYBOARD";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.contextMenuStrip1.ResumeLayout(false);
+            this.contextMenuSettings.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -236,8 +240,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnLanSelect;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Button btnSettings;
+        private System.Windows.Forms.ContextMenuStrip contextMenuSettings;
         private System.Windows.Forms.ToolStripMenuItem hIToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tamilToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;

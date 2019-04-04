@@ -48,5 +48,35 @@ namespace Tace16TamilKeyboard
                 btnLanSelect.Text = "த";
             }
         }
+
+        private void btnSettings_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && contextMenuSettings.Visible == false)
+            {
+                contextMenuSettings.Show(Cursor.Position.X, Cursor.Position.Y);
+            }
+        }
+        Point startPosition = new Point(); 
+        private void button1_MouseMove(object sender, MouseEventArgs e)
+        {
+            // If Left Button was pressed
+            if (e.Button == MouseButtons.Left)
+            {
+                // then move the Tooltip
+                this.Left += e.Location.X - startPosition.X;
+                this.Top += e.Location.Y - startPosition.Y;
+            }
+        }
+
+        private void button1_MouseDown(object sender, MouseEventArgs e)
+        {
+            startPosition = e.Location;
+        }
+
+        private void button1_MouseEnter(object sender, EventArgs e)
+        {
+            // Set the Mouse Cursor
+            this.Cursor = Cursors.SizeAll;
+        }
     }
 }
