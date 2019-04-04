@@ -14,8 +14,9 @@ https://github.com/ThaniThamizhAkarathiKalanjiyam/tam_ilakiyam/tree/master/Colle
 
 ## Run the application
 
-- the application can ble to run from the **"release"** folder
-- in the release folder there is a file called **AnyTaFont2UTF8.exe** by running this application you can convert any tamil font encoding to UTF8 encoding format
+- The application can ble to run from the **"release"** folder
+- In the release folder there is a file called **AnyTaFont2UTF8.exe** by running this application you can convert any tamil font encoding to UTF8 encoding format
+- To convert uniocde text or unicoded files to **TACE16** just run the appplication **AnyTaFont2TACE16.exe**
 
 ## Developers
 - This application build on **3.5 .NET framework**
