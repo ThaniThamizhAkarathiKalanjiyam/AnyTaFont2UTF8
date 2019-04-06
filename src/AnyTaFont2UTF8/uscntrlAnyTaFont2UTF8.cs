@@ -19,9 +19,8 @@ namespace AnyTaFont2UTF8
         public uscntrlAnyTaFont2UTF8()
         {
             InitializeComponent();
-
-
         }
+
         TamilWordNLP objTamilWordNLP = new TamilWordNLP();
         private void loadFontMapDocuments()
         {

@@ -83,7 +83,7 @@ namespace Tace16TamilKeyboard
                 {
                     if (Control.IsKeyLocked(System.Windows.Forms.Keys.CapsLock))
                     {
-                        ToggleCapsLock();
+                        //ToggleCapsLock();//COMMETD BY MPM FOR TEST ONLY MAY ENABLE THIS
                     }
                     lastKeyWasLetter = false;
                 }
@@ -92,17 +92,24 @@ namespace Tace16TamilKeyboard
                 {
                     if (!Control.IsKeyLocked(System.Windows.Forms.Keys.CapsLock))
                     {
-                        ToggleCapsLock();
+                        //ToggleCapsLock();
                     }
                 }
                 else if (key >= Keys.A && key <= Keys.Z)
                 {
-                    lastKeyWasLetter = true;
+                   lastKeyWasLetter = true;
                 }
-                ShowingWords();
+                ShowingWords(key);
                 
             }
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
+        }
+
+        private static void ShowingWords(Keys key)
+        {
+            ShowingWords();
+            objfrmTooltip.setListedWords(key.ToString());
+
         }
 
         private static void ShowingWords()

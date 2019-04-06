@@ -19,242 +19,271 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Diagnostics;
 using System.IO;
+using WPEntities.Noolkal.Entities;
+using TamilWords;
 
 namespace CaretPosition
 {
     public partial class frmTooltip : Form
     {
+        List<String> lstProcesses = new List<string>();
+        //List<FontMapChars> itrans = new List<FontMapChars>();
+        TamilWordNLP objTamilWordNLP = new TamilWordNLP();
 
-       public frmTooltip()
-       {
-           InitializeComponent();
-           timer1.Start();  // Processing events from Hooks involves message queue complexities.
-       }                    // Timer has been used just to avoid that Mouse and Keyboard hooking                           
-                            // and to keep things simple. 
+        public frmTooltip()
+        {
+            InitializeComponent();
+            timer1.Start();  // Processing events from Hooks involves message queue complexities.
+        }                    // Timer has been used just to avoid that Mouse and Keyboard hooking                           
+        // and to keep things simple. 
 
-       # region Data Members & Structures 
-               
-            
-           
-            [StructLayout(LayoutKind.Sequential)]    // Required by user32.dll
-            public struct RECT
-            {
-                public uint Left;
-                public uint Top;
-                public uint Right;
-                public uint Bottom;
-            };
+        # region Data Members & Structures
 
-            [StructLayout(LayoutKind.Sequential)]    // Required by user32.dll
-            public struct GUITHREADINFO
-            {
-                public uint cbSize;
-                public uint flags;
-                public IntPtr hwndActive;
-                public IntPtr hwndFocus;
-                public IntPtr hwndCapture;
-                public IntPtr hwndMenuOwner;
-                public IntPtr hwndMoveSize;
-                public IntPtr hwndCaret;
-                public RECT rcCaret;
-            };                  
 
-            Point startPosition = new Point();       // Point required for ToolTip movement by Mouse
-            GUITHREADINFO guiInfo;                     // To store GUI Thread Information
-            Point caretPosition;                     // To store Caret Position  
-        
+
+        [StructLayout(LayoutKind.Sequential)]    // Required by user32.dll
+        public struct RECT
+        {
+            public uint Left;
+            public uint Top;
+            public uint Right;
+            public uint Bottom;
+        };
+
+        [StructLayout(LayoutKind.Sequential)]    // Required by user32.dll
+        public struct GUITHREADINFO
+        {
+            public uint cbSize;
+            public uint flags;
+            public IntPtr hwndActive;
+            public IntPtr hwndFocus;
+            public IntPtr hwndCapture;
+            public IntPtr hwndMenuOwner;
+            public IntPtr hwndMoveSize;
+            public IntPtr hwndCaret;
+            public RECT rcCaret;
+        };
+
+        Point startPosition = new Point();       // Point required for ToolTip movement by Mouse
+        GUITHREADINFO guiInfo;                     // To store GUI Thread Information
+        Point caretPosition;                     // To store Caret Position  
+
 
         # endregion
 
-       # region DllImports 
-        
-
-           /*- Retrieves Title Information of the specified window -*/
-           [DllImport("user32.dll")]
-           static extern int GetWindowText(int hWnd, StringBuilder text, int count);
-
-           /*- Retrieves Id of the thread that created the specified window -*/
-           [DllImport("user32.dll", SetLastError = true)]
-           static extern uint GetWindowThreadProcessId(int hWnd, out uint lpdwProcessId);
-
-           /*- Retrieves information about active window or any specific GUI thread -*/
-           [DllImport("user32.dll", EntryPoint = "GetGUIThreadInfo")]     
-           public static extern bool GetGUIThreadInfo(uint tId, out GUITHREADINFO threadInfo);
-
-           /*- Retrieves Handle to the ForeGroundWindow -*/
-           [DllImport("user32.dll")]         
-           public static extern IntPtr GetForegroundWindow();
-
-           /*- Converts window specific point to screen specific -*/
-           [DllImport("user32.dll")]       
-           public static extern bool ClientToScreen(IntPtr hWnd, out Point position);
-
-        
-
-       # endregion      
-
-       #region Event Handlers 
+        # region DllImports
 
 
-           private void timer1_Tick(object sender, EventArgs e)
-           {
-               // If Tooltip window is active window (Suppose user clicks on the Tooltip Window)
-               if (GetForegroundWindow() == this.Handle)
-               {
-                   // then do no processing
-                   return;
-               }
+        /*- Retrieves Title Information of the specified window -*/
+        [DllImport("user32.dll")]
+        static extern int GetWindowText(int hWnd, StringBuilder text, int count);
 
-               // Get Current active Process
-               string activeProcess = GetActiveProcess();
+        /*- Retrieves Id of the thread that created the specified window -*/
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern uint GetWindowThreadProcessId(int hWnd, out uint lpdwProcessId);
 
-               // If window explorer is active window (eg. user has opened any drive)
-               // Or for any failure when activeProcess is nothing               
-               if (
-                   (activeProcess.ToLower().Contains("explorer")
-                   | activeProcess.ToLower().Contains("devenv")
-                   | activeProcess.ToLower().Contains("tace16tamilkeyboard")
-                   | (activeProcess == string.Empty)))
-               
-               {
-                   // Dissappear Tooltip
-                   this.Visible = false;
-               }
-               else
-               {
-                   // Otherwise Calculate Caret position
-                   EvaluateCaretPosition();
+        /*- Retrieves information about active window or any specific GUI thread -*/
+        [DllImport("user32.dll", EntryPoint = "GetGUIThreadInfo")]
+        public static extern bool GetGUIThreadInfo(uint tId, out GUITHREADINFO threadInfo);
 
-                   // Adjust ToolTip according to the Caret
-                   AdjustUI();
+        /*- Retrieves Handle to the ForeGroundWindow -*/
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetForegroundWindow();
 
-                   // Display current active Process on Tooltip
-                   lblCurrentApp.Text = " You are Currently inside : " + activeProcess;
-                   this.Visible = true;
-               }               
-           }
-
-           private void panel1_MouseEnter(object sender, EventArgs e)
-           {
-               // Set the Mouse Cursor
-               this.Cursor = Cursors.SizeAll;
-           }
-
-           private void panel1_MouseMove(object sender, MouseEventArgs e)
-           {
-               // If Left Button was pressed
-               if (e.Button == MouseButtons.Left)
-               {
-                   // then move the Tooltip
-                   this.Left += e.Location.X - startPosition.X;
-                   this.Top += e.Location.Y - startPosition.Y;
-               }
-           }
-
-           private void panel1_MouseDown(object sender, MouseEventArgs e)
-           {
-               // Store start position of mouse when clicked down.
-               // It will be used to calculate offset during movement.
-               startPosition = e.Location;
-           }
+        /*- Converts window specific point to screen specific -*/
+        [DllImport("user32.dll")]
+        public static extern bool ClientToScreen(IntPtr hWnd, out Point position);
 
 
-       #endregion
 
-       #region Methods 
-        
+        # endregion
 
-        
-           /// <summary>
-           /// This function will adjust Tooltip position and
-           /// will keep it always inside the screen area.
-           /// </summary>
-           private void AdjustUI()
-           {
-               // Get Current Screen Resolution
-               Rectangle workingArea = SystemInformation.WorkingArea;
+        #region Event Handlers
 
-               // If current caret position throws Tooltip outside of screen area
-               // then do some UI adjustment.
-               if (caretPosition.X + this.Width > workingArea.Width)
-               {
-                   caretPosition.X = caretPosition.X - this.Width - 50;
-               }
 
-               if (caretPosition.Y + this.Height > workingArea.Height)
-               {
-                   caretPosition.Y = caretPosition.Y - this.Height -50;
-               }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            // If Tooltip window is active window (Suppose user clicks on the Tooltip Window)
+            if (GetForegroundWindow() == this.Handle)
+            {
+                // then do no processing
+                return;
+            }
 
-               this.Left = caretPosition.X;
-               this.Top = caretPosition.Y;
-           }
+            // Get Current active Process
+            string activeProcess = GetActiveProcess();
 
-           /// <summary>
-           /// Evaluates Cursor Position with respect to client screen.
-           /// </summary>
-           private void EvaluateCaretPosition()
-           {
-               caretPosition = new Point();                 
+            // If window explorer is active window (eg. user has opened any drive)
+            // Or for any failure when activeProcess is nothing               
+            if (
+                (activeProcess.ToLower().Contains("explorer")
+                | activeProcess.ToLower().Contains("devenv")
+                | activeProcess.ToLower().Contains("tace16tamilkeyboard")
+                | (activeProcess == string.Empty)))
+            {
+                // Dissappear Tooltip
+                this.Visible = false;
+            }
+            else
+            {
+                // Otherwise Calculate Caret position
+                EvaluateCaretPosition();
 
-               // Fetch GUITHREADINFO
-               GetCaretPosition();
+                // Adjust ToolTip according to the Caret
+                AdjustUI();
 
-               caretPosition.X = (int)guiInfo.rcCaret.Left + 25;
-//               caretPosition.Y = (int)guiInfo.rcCaret.Bottom + 25;
-               caretPosition.Y = (int)guiInfo.rcCaret.Bottom + 5;
+                // Display current active Process on Tooltip
+                lblCurrentApp.Text = " You are Currently inside : " + activeProcess;
+                this.Visible = true;
+            }
+        }
 
-               ClientToScreen(guiInfo.hwndCaret, out caretPosition);
+        private void panel1_MouseEnter(object sender, EventArgs e)
+        {
+            // Set the Mouse Cursor
+            this.Cursor = Cursors.SizeAll;
+        }
 
-               txtCaretX.Text = (caretPosition.X).ToString();
-               txtCaretY.Text = caretPosition.Y.ToString();
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            // If Left Button was pressed
+            if (e.Button == MouseButtons.Left)
+            {
+                // then move the Tooltip
+                this.Left += e.Location.X - startPosition.X;
+                this.Top += e.Location.Y - startPosition.Y;
+            }
+        }
 
-           }
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            // Store start position of mouse when clicked down.
+            // It will be used to calculate offset during movement.
+            startPosition = e.Location;
+        }
 
-           /// <summary>
-           /// Get the caret position
-           /// </summary>
-           public void GetCaretPosition()
-           {
-               guiInfo = new GUITHREADINFO();
-               guiInfo.cbSize = (uint)Marshal.SizeOf(guiInfo);
 
-               // Get GuiThreadInfo into guiInfo
-               GetGUIThreadInfo(0, out guiInfo);
-           }              
-     
-           /// <summary>
-           /// Retrieves name of active Process.
-           /// </summary>
-           /// <returns>Active Process Name</returns>
-           private string GetActiveProcess()
-           {
-               const int nChars = 256;
-               int handle = 0;
-               StringBuilder Buff = new StringBuilder(nChars);
-               handle = (int)GetForegroundWindow();
+        #endregion
 
-               // If Active window has some title info
-               if (GetWindowText(handle, Buff, nChars) > 0)
-               {
-                   uint lpdwProcessId;
-                   uint dwCaretID = GetWindowThreadProcessId(handle, out lpdwProcessId);
-                   uint dwCurrentID = (uint)Thread.CurrentThread.ManagedThreadId;
-                   return Process.GetProcessById((int)lpdwProcessId).ProcessName;
-               }
-               // Otherwise either error or non client region
-               return String.Empty;
-           }
+        #region Methods
 
-              
-        
-      #endregion
 
-           List<String> lstProcesses = new List<string>();
-           private void frmTooltip_Load(object sender, EventArgs e)
-           {
-               lstProcesses = File.ReadAllLines("_20190331").ToList();
-           }
+
+        /// <summary>
+        /// This function will adjust Tooltip position and
+        /// will keep it always inside the screen area.
+        /// </summary>
+        private void AdjustUI()
+        {
+            // Get Current Screen Resolution
+            Rectangle workingArea = SystemInformation.WorkingArea;
+
+            // If current caret position throws Tooltip outside of screen area
+            // then do some UI adjustment.
+            if (caretPosition.X + this.Width > workingArea.Width)
+            {
+                caretPosition.X = caretPosition.X - this.Width - 50;
+            }
+
+            if (caretPosition.Y + this.Height > workingArea.Height)
+            {
+                caretPosition.Y = caretPosition.Y - this.Height - 50;
+            }
+
+            this.Left = caretPosition.X;
+            this.Top = caretPosition.Y;
+        }
+
+        /// <summary>
+        /// Evaluates Cursor Position with respect to client screen.
+        /// </summary>
+        private void EvaluateCaretPosition()
+        {
+            caretPosition = new Point();
+
+            // Fetch GUITHREADINFO
+            GetCaretPosition();
+
+            caretPosition.X = (int)guiInfo.rcCaret.Left + 25;
+            //               caretPosition.Y = (int)guiInfo.rcCaret.Bottom + 25;
+            caretPosition.Y = (int)guiInfo.rcCaret.Bottom + 5;
+
+            ClientToScreen(guiInfo.hwndCaret, out caretPosition);
+
+            txtCaretX.Text = (caretPosition.X).ToString();
+            txtCaretY.Text = caretPosition.Y.ToString();
+
+        }
+
+        /// <summary>
+        /// Get the caret position
+        /// </summary>
+        public void GetCaretPosition()
+        {
+            guiInfo = new GUITHREADINFO();
+            guiInfo.cbSize = (uint)Marshal.SizeOf(guiInfo);
+
+            // Get GuiThreadInfo into guiInfo
+            GetGUIThreadInfo(0, out guiInfo);
+        }
+
+        /// <summary>
+        /// Retrieves name of active Process.
+        /// </summary>
+        /// <returns>Active Process Name</returns>
+        private string GetActiveProcess()
+        {
+            const int nChars = 256;
+            int handle = 0;
+            StringBuilder Buff = new StringBuilder(nChars);
+            handle = (int)GetForegroundWindow();
+
+            // If Active window has some title info
+            if (GetWindowText(handle, Buff, nChars) > 0)
+            {
+                uint lpdwProcessId;
+                uint dwCaretID = GetWindowThreadProcessId(handle, out lpdwProcessId);
+                uint dwCurrentID = (uint)Thread.CurrentThread.ManagedThreadId;
+                return Process.GetProcessById((int)lpdwProcessId).ProcessName;
+            }
+            // Otherwise either error or non client region
+            return String.Empty;
+        }
+
+
+
+        #endregion
+
+
+        private void frmTooltip_Load(object sender, EventArgs e)
+        {
+            lstProcesses = objTamilWordNLP.getProcessList();
+            //itrans = objTamilWordNLP.getItransMap();
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        public void setListedWords(string givenCharacter)
+        {
+
+            if (givenCharacter == Keys.Enter.ToString())
+            {
+
+            }
+            if (givenCharacter == Keys.Tab.ToString()
+                || givenCharacter == Keys.Space.ToString())
+            {
+                sb = new StringBuilder();
+                //lstBoxSuggestedWords.Items.Clear();
+            }
+            else
+            {
+                sb.Append(givenCharacter);
+                lstBoxSuggestedWords.Items.Clear();
+                lstBoxSuggestedWords.Items.AddRange(objTamilWordNLP.getSuggestedWordslist(sb));
+            }
+
+        }
 
 
     }

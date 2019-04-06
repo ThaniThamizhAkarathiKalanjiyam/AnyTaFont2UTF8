@@ -78,5 +78,11 @@ namespace Tace16TamilKeyboard
             // Set the Mouse Cursor
             this.Cursor = Cursors.SizeAll;
         }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            // Set the Mouse Cursor
+            this.Cursor = Cursors.Arrow;
+        }
     }
 }

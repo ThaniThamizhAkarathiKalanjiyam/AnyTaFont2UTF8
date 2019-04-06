@@ -571,12 +571,12 @@ namespace TamilWords
         {
             string[] files = Directory.GetFiles(UTF8FolderSrc);
 
-            foreach(string file in files)
+            foreach (string file in files)
             {
                 string fileContent = File.ReadAllText(file);
 
                 File.WriteAllText(UTF8FolderDesti + "\\" + Path.GetFileName(file),
-                     EncodeToUTF8(fileNameFontMap,fileContent));
+                     EncodeToUTF8(fileNameFontMap, fileContent));
             }
 
             return "Done";
@@ -588,13 +588,13 @@ namespace TamilWords
             string[] fontToUTF8Map = File.ReadAllLines(fileNameFontMap,
                 Encoding.UTF8);
 
-            List<FontMapChars> lstFontMapChars = new List<FontMapChars>();
+            //List<FontMapChars> lstFontMapChars = new List<FontMapChars>();
 
 
             foreach (string strLine in fontToUTF8Map)
             {
                 string[] mapstr = strLine.Split(' ');
-                lstFontMapChars.Add(new FontMapChars() { TaChar = mapstr[0], TaCharUtf8 = mapstr[1] });
+                //lstFontMapChars.Add(new FontMapChars() { TaChar = mapstr[0], TaCharUtf8 = mapstr[1] });
                 inputContent = inputContent.Replace(mapstr[0], mapstr[1]);
             }
             return inputContent;
@@ -1048,6 +1048,53 @@ namespace TamilWords
                 getUTFConvertedWord(getFirstWord);
             }
             return fontNames;
+        }
+
+        public List<FontMapChars> getItransMap()
+        {
+            string[] fontToUTF8Map = File.ReadAllLines("ITRANS.txt",
+                  Encoding.UTF8);
+
+            List<FontMapChars> lstFontMapChars = new List<FontMapChars>();
+
+
+            foreach (string strLine in fontToUTF8Map)
+            {
+                string[] mapstr = strLine.Split(' ');
+                lstFontMapChars.Add(new FontMapChars() { TaChar = mapstr[0], TaCharUtf8 = mapstr[1] });
+            }
+            return lstFontMapChars;
+        }
+
+        //List<FontMapChars> lstFontMapChars = getItransMap();
+        List<FontMapChars> lstiTRANSMapChars = new List<FontMapChars>();
+
+        public string[] getSuggestedWordslist(StringBuilder sb)
+        {
+            if (lstiTRANSMapChars.Count() == 0)
+            {
+                lstiTRANSMapChars = getItransMap();
+            }
+
+            List<string> sugg = new List<string>();
+            sugg.Add(sb.ToString());
+
+            foreach (char wordLetter in sb.ToString())
+            {
+                FontMapChars objFontMapChars = lstiTRANSMapChars.FirstOrDefault(W => W.TaChar == wordLetter.ToString());
+
+                if (objFontMapChars != null)
+                {
+                    sugg.Add(objFontMapChars.TaCharUtf8);
+                }
+            }
+
+            return sugg.ToArray();
+        }
+
+        public List<string> getProcessList()
+        {
+            return File.ReadAllLines("_20190331").ToList();
         }
     }
 }

@@ -33,17 +33,17 @@
             this.lblCaretX = new System.Windows.Forms.Label();
             this.lblCaretY = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lstBoxSuggestedWords = new System.Windows.Forms.ListBox();
+            this.txtCaretY = new System.Windows.Forms.TextBox();
             this.lblCurrentApp = new System.Windows.Forms.Label();
             this.txtCaretX = new System.Windows.Forms.TextBox();
-            this.txtCaretY = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 200;
+            this.timer1.Interval = 300;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // lblCaretX
@@ -72,7 +72,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.listBox1);
+            this.panel1.Controls.Add(this.lstBoxSuggestedWords);
             this.panel1.Controls.Add(this.txtCaretY);
             this.panel1.Controls.Add(this.lblCurrentApp);
             this.panel1.Controls.Add(this.lblCaretY);
@@ -86,6 +86,24 @@
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             this.panel1.MouseEnter += new System.EventHandler(this.panel1_MouseEnter);
+            // 
+            // listBox1
+            // 
+            this.lstBoxSuggestedWords.FormattingEnabled = true;
+            this.lstBoxSuggestedWords.Location = new System.Drawing.Point(0, 1);
+            this.lstBoxSuggestedWords.Name = "listBox1";
+            this.lstBoxSuggestedWords.Size = new System.Drawing.Size(280, 69);
+            this.lstBoxSuggestedWords.TabIndex = 8;
+            // 
+            // txtCaretY
+            // 
+            this.txtCaretY.BackColor = System.Drawing.Color.LightGoldenrodYellow;
+            this.txtCaretY.Enabled = false;
+            this.txtCaretY.Location = new System.Drawing.Point(161, 76);
+            this.txtCaretY.Name = "txtCaretY";
+            this.txtCaretY.ReadOnly = true;
+            this.txtCaretY.Size = new System.Drawing.Size(98, 20);
+            this.txtCaretY.TabIndex = 2;
             // 
             // lblCurrentApp
             // 
@@ -107,24 +125,6 @@
             this.txtCaretX.ReadOnly = true;
             this.txtCaretX.Size = new System.Drawing.Size(98, 20);
             this.txtCaretX.TabIndex = 1;
-            // 
-            // txtCaretY
-            // 
-            this.txtCaretY.BackColor = System.Drawing.Color.LightGoldenrodYellow;
-            this.txtCaretY.Enabled = false;
-            this.txtCaretY.Location = new System.Drawing.Point(161, 76);
-            this.txtCaretY.Name = "txtCaretY";
-            this.txtCaretY.ReadOnly = true;
-            this.txtCaretY.Size = new System.Drawing.Size(98, 20);
-            this.txtCaretY.TabIndex = 2;
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(0, 1);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(280, 69);
-            this.listBox1.TabIndex = 8;
             // 
             // frmTooltip
             // 
@@ -155,7 +155,7 @@
         private System.Windows.Forms.Label lblCurrentApp;
         private System.Windows.Forms.TextBox txtCaretX;
         private System.Windows.Forms.TextBox txtCaretY;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lstBoxSuggestedWords;
     }
 }
 

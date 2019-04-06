@@ -52,14 +52,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AnyTaFont2UTF8.exe" size="16384">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AnyTaFont2UTF8.exe" size="16896">
       <assemblyIdentity name="AnyTaFont2UTF8" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>pxHIakYSQzrs2ig8kG5JodIoqMg=</dsig:DigestValue>
+        <dsig:DigestValue>a1l3233Hx30RCkByyF1xnBnYQek=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -76,14 +76,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TamilWordNLP.dll" size="27648">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TamilWordNLP.dll" size="28672">
       <assemblyIdentity name="TamilWordNLP" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>RxDwY+hsYLeot4DMHrdaAEi73IY=</dsig:DigestValue>
+        <dsig:DigestValue>GsIn7p5mNs5XFSJmGW6b2pAJQLA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
