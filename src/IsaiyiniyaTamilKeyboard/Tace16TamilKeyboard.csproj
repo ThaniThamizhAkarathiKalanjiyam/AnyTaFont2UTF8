@@ -61,6 +61,7 @@
       <DependentUpon>frmTace16TamilKeyboard.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="Program_old.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmSuggestedWords.resx">
       <DependentUpon>frmSuggestedWords.cs</DependentUpon>

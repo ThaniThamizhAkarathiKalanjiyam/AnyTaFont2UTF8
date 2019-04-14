@@ -29,7 +29,105 @@ namespace CaretPosition
         List<String> lstProcesses = new List<string>();
         //List<FontMapChars> itrans = new List<FontMapChars>();
         TamilWordNLP objTamilWordNLP = new TamilWordNLP();
+        bool showTheForm = false;
 
+        public bool ShowTheForm
+        {
+            get { return showTheForm; }
+            set { showTheForm = value; }
+        }
+
+        //include FindWindowEx
+        [DllImport("user32.dll")]
+        public static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
+
+        //include SendMessage
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int uMsg, int wParam, string lParam);
+
+        //this is a constant indicating the window that we want to send a text message
+        const int WM_SETTEXT = 0X000C;
+
+        private const int WH_KEYBOARD_LL = 13;
+        private const int WM_KEYDOWN = 0x0100;
+        private static LowLevelKeyboardProc _proc = HookCallback;
+        private static IntPtr _hookID = IntPtr.Zero;
+        private static bool lastKeyWasLetter = false;
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool UnhookWindowsHookEx(IntPtr hhk);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr GetModuleHandle(string lpModuleName);
+
+        [DllImport("user32.dll")]
+        static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
+
+        private delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
+
+        private static IntPtr SetHook(LowLevelKeyboardProc proc)
+        {
+            using (Process curProcess = Process.GetCurrentProcess())
+            //using (Process curProcess = getNotepadProcess().)
+            {
+                using (ProcessModule curModule = curProcess.MainModule)
+                {
+                    return SetWindowsHookEx(WH_KEYBOARD_LL, proc, GetModuleHandle(curModule.ModuleName), 0);
+                }
+            }
+        }
+
+        private static void ToggleCapsLock()
+        {
+            const int KEYEVENTF_EXTENDEDKEY = 0x1;
+            const int KEYEVENTF_KEYUP = 0x2;
+
+            UnhookWindowsHookEx(_hookID);
+            keybd_event(0x14, 0x45, KEYEVENTF_EXTENDEDKEY, (UIntPtr)0);
+            keybd_event(0x14, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, (UIntPtr)0);
+            _hookID = SetHook(_proc);
+        }
+
+        private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
+        {
+            //if (showTheForm == true)
+            {
+                if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
+                {
+                    if (lastKeyWasLetter)
+                    {
+                        if (Control.IsKeyLocked(System.Windows.Forms.Keys.CapsLock))
+                        {
+                            ToggleCapsLock();
+                        }
+                        lastKeyWasLetter = false;
+                    }
+                    Keys key = (Keys)Marshal.ReadInt32(lParam);
+                    if (key == Keys.Space)
+                    {
+                        if (!Control.IsKeyLocked(System.Windows.Forms.Keys.CapsLock))
+                        {
+                            ToggleCapsLock();
+                        }
+                    }
+                    else if (key >= Keys.A && key <= Keys.Z)
+                    {
+                        lastKeyWasLetter = true;
+                    }
+
+                    //test();
+                }
+
+            }
+            return CallNextHookEx(_hookID, nCode, wParam, lParam);
+        }
         public frmTooltip()
         {
             InitializeComponent();
@@ -103,6 +201,10 @@ namespace CaretPosition
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+
+            //}
+            //private void test()
+            //{
             // If Tooltip window is active window (Suppose user clicks on the Tooltip Window)
             if (GetForegroundWindow() == this.Handle)
             {
@@ -213,6 +315,7 @@ namespace CaretPosition
             txtCaretX.Text = (caretPosition.X).ToString();
             txtCaretY.Text = caretPosition.Y.ToString();
 
+            textBox1.Focus();
         }
 
         /// <summary>
@@ -225,6 +328,7 @@ namespace CaretPosition
 
             // Get GuiThreadInfo into guiInfo
             GetGUIThreadInfo(0, out guiInfo);
+            ActivateTargetApplication();
         }
 
         /// <summary>
@@ -259,6 +363,7 @@ namespace CaretPosition
         {
             lstProcesses = objTamilWordNLP.getProcessList();
             //itrans = objTamilWordNLP.getItransMap();
+            ActivateTargetApplication();
         }
 
         StringBuilder sb = new StringBuilder();
@@ -285,6 +390,79 @@ namespace CaretPosition
 
         }
 
+
+
+        public void setActiveControl()
+        {
+            //this.ActiveControl = lstBoxSuggestedWords;
+            //ActivateTargetApplication();
+        }
+        [DllImport("User32.dll")]
+        public static extern int SetForegroundWindow(IntPtr point);
+
+        public void ActivateTargetApplication()
+        {
+            Process[] prco = Process.GetProcessesByName(this.Name);
+
+            //Process p = Process.Start(this.Name);
+            //p.WaitForInputIdle();
+            IntPtr h = this.Handle;
+            SetForegroundWindow(h);
+            ////SendKeys.SendWait("");
+            //IntPtr processFoundWindow = p.MainWindowHandle;
+
+        }
+
+        private void textBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Space)
+            {
+                //getting notepad's process | at least one instance of notepad must be running
+                //Process notepadProccess = Process.GetProcessesByName("notepad")[0];
+
+                ////getting notepad's textbox handle from the main window's handle
+                ////the textbox is called 'Edit'
+                //IntPtr notepadTextbox = FindWindowEx(notepadProccess.MainWindowHandle, IntPtr.Zero, "Edit", null);
+                ////sending the message to the textbox
+                ////SendMessage(notepadTextbox, WM_SETTEXT, 0, textBox1.Text);
+                //SendMessage(notepadTextbox, WM_SETTEXT, 0, textBox1.Text);
+                //textBox1.Text = "";
+
+
+                Process[] notepads = Process.GetProcessesByName("notepad");
+                if (notepads.Length == 0) return;
+                if (notepads[0] != null)
+                {
+                    wholeTextFile.Append(textBox1.Text + " ");
+                    IntPtr child = FindWindowEx(notepads[0].MainWindowHandle, new IntPtr(0), "Edit", null);
+                    SendMessage(child, 0x000C, 0, wholeTextFile.ToString());
+                    setListedWords(textBox1.Text);
+                    textBox1.Text = "";
+                    //this.Visible = false;
+                }
+            }
+        }
+
+        StringBuilder wholeTextFile = new StringBuilder();
+
+
+        static void ExportToNotepad(string text)
+        {
+            ProcessStartInfo startInfo = getNotepadProcess(text);
+
+            Process notepad = Process.Start(startInfo);
+            notepad.WaitForInputIdle();
+
+            IntPtr child = FindWindowEx(notepad.MainWindowHandle, new IntPtr(0), null, null);
+            SendMessage(child, 0x000c, 0, text);
+        }
+
+        private static ProcessStartInfo getNotepadProcess(string text)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo(text);
+            startInfo.UseShellExecute = false;
+            return startInfo;
+        }
 
     }
 }

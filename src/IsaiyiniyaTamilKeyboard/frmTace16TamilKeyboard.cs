@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using CaretPosition;
 
 namespace Tace16TamilKeyboard
 {
@@ -20,6 +21,10 @@ namespace Tace16TamilKeyboard
         private void Form1_Load(object sender, EventArgs e)
         {
             btnLanSelectToggle();
+            
+            int x = Screen.PrimaryScreen.WorkingArea.Width - this.Width;
+            int y = Screen.PrimaryScreen.WorkingArea.Height - this.Height;
+            this.Location = new Point(x, y);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -36,16 +41,19 @@ namespace Tace16TamilKeyboard
         {
             btnLanSelectToggle();
         }
+        frmTooltip obj = new frmTooltip();
 
         private void btnLanSelectToggle()
         {
             if (btnLanSelect.Text == "த")
             {
                 btnLanSelect.Text = "A";
+                obj.Visible = false;
             }
             else
             {
-                btnLanSelect.Text = "த";
+                btnLanSelect.Text = "த";                
+                obj.Show();
             }
         }
 
