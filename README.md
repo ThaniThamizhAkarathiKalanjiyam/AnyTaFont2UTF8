@@ -12,7 +12,6 @@ https://github.com/ThaniThamizhAkarathiKalanjiyam/tam_ilakiyam/tree/master/Colle
 - (2) இந்த மாற்றியில்  இடும் கோப்பின் அளவின் எல்லை இப்போது என்ன ? Unlimited File Size
 - (3) இதன் பிறண்ட  நிலை அதாவது யூனிகோடிலிருந்து மற்றவைகளுக்கு மாற்றுபவை. 
 
-
 ## Run the application & Installation
 
 1. If you are running Notepad++ 7.6 or later:
@@ -25,10 +24,79 @@ https://github.com/ThaniThamizhAkarathiKalanjiyam/tam_ilakiyam/tree/master/Colle
 
 ## Folder Structure
 
-![](assets/a3f2e81289f3dd8dcd589fa8bbc1a2cf404dfa29.JPG)
+![](Release/Release/screenshots/AnyTaFont2UTF8.NPP.plugin-struct.JPG)
 
+## Files Structure
 
-## What It Does
+![](Release/Release/screenshots/AnyTaFont2UTF8.NPP.plugin-Files-struct.JPG)
+
+## How to use the Plugin at Notepad++
+
+- Download Notepad++ from https://notepad-plus-plus.org/downloads/v8.6.5/
+
+- Download latest AnyTaFont2UTF8 from https://codeload.github.com/ThaniThamizhAkarathiKalanjiyam/AnyTaFont2UTF8/zip/refs/heads/master
+
+- Extract AnyTaFont2UTF8-master.zip; It created new folder called AnyTaFont2UTF8-master
+
+- Extract npp.8.6.5.portable.x64.zip; It creates new folder called npp.8.6.5.portable.x64; Go inside the folder there is a file called Notepad++.exe; Click it
+
+![](Release/Release/screenshots/2024-04-16-13-16-27-image.png)
+
+- Click plugins menu, then click open Plugin Folder
+
+![](Release/Release/screenshots/2024-04-16-13-17-57-image.png)
+
+- Copy After AnyTaFont2UTF8.NPP plugin folder to this folder
+  ![](Release/screenshots/2024-04-16-13-20-39-image.png)
+
+- After copied the plugin folder seems as below
+  
+  ![](Release/screenshots/2024-04-16-13-23-34-image.png)
+
+- Rename folder Name Release-x64 to AnyTaFont2UTF8 within plugin folder
+  ![](Release/screenshots/2024-04-16-13-25-51-image.png)
+
+- Now close Notepad++; then reopen
+
+- Now you can see AnyTaFont2UTF8 menu under plugins menu
+  ![](Release/screenshots/2024-04-16-13-27-59-image.png)
+
+## Word / PDF content to UTF8
+
+- Now i consider i have a pdf; the text are in the Vanavil Format; Open PDF at Adobe Reader; Then click Document Properties from File menu
+  
+  ![](Release/screenshots/2024-04-16-13-34-49-image.png)
+
+- Go to Fonts tab as below
+
+![](Release/screenshots/2024-04-16-13-36-28-image.png)
+
+- In the screen Vanavil font is available so i assumed text was created using Vanavil Font.
+
+- Then i select the Page Content from the needed page; like below copy the text and past it to Notepad++
+  
+  ![](Release/screenshots/2024-04-16-13-40-54-image.png)
+
+- After past the text at Notepad++ it seems as below
+  
+  ![](Release/screenshots/2024-04-16-13-42-23-image.png)
+
+- After past the text seems as below
+  
+  ![](Release/screenshots/2024-04-16-13-43-58-image.png)
+
+- We already know the PDF text formated using Vanavil Font; So here I give command to our plugin convert Vanavil Font to UTF8.
+
+- ToDo the conversion Select Text then go to AnyTaFont2UTF8 plugin menu
+  ![](Release/screenshots/2024-04-16-13-48-01-image.png)
+
+- Our Plugin change the text to UTF8 encoding; 
+  
+  ![](Release/screenshots/2024-04-16-13-52-53-image.png)
+
+- This is our Plugin magic; If you think this is worth means you can share this plugin link to Others.
+
+## What AnyTaFont2UTF8 plugin Does
 
 | From Font Name | To Encoding Type |
 | -------------- | ---------------- |
@@ -55,8 +123,6 @@ https://github.com/ThaniThamizhAkarathiKalanjiyam/tam_ilakiyam/tree/master/Colle
 | UTF8           |                  |
 | Vanavil        | UTF8             |
 | Webulagam      | UTF8             |
-
-
 
 ## License
 
