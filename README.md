@@ -24,11 +24,11 @@ https://github.com/ThaniThamizhAkarathiKalanjiyam/tam_ilakiyam/tree/master/Colle
 
 ## Folder Structure
 
-![](Release/Release/screenshots/AnyTaFont2UTF8.NPP.plugin-struct.JPG)
+![](Release/screenshots/AnyTaFont2UTF8.NPP.plugin-struct.JPG)
 
 ## Files Structure
 
-![](Release/Release/screenshots/AnyTaFont2UTF8.NPP.plugin-Files-struct.JPG)
+![](Release/screenshots/AnyTaFont2UTF8.NPP.plugin-Files-struct.JPG)
 
 ## How to use the Plugin at Notepad++
 
@@ -40,11 +40,11 @@ https://github.com/ThaniThamizhAkarathiKalanjiyam/tam_ilakiyam/tree/master/Colle
 
 - Extract npp.8.6.5.portable.x64.zip; It creates new folder called npp.8.6.5.portable.x64; Go inside the folder there is a file called Notepad++.exe; Click it
 
-![](Release/Release/screenshots/2024-04-16-13-16-27-image.png)
+![](Release/screenshots/2024-04-16-13-16-27-image.png)
 
 - Click plugins menu, then click open Plugin Folder
 
-![](Release/Release/screenshots/2024-04-16-13-17-57-image.png)
+![](Release/screenshots/2024-04-16-13-17-57-image.png)
 
 - Copy After AnyTaFont2UTF8.NPP plugin folder to this folder
   ![](Release/screenshots/2024-04-16-13-20-39-image.png)
