@@ -65,34 +65,39 @@ https://github.com/ThaniThamizhAkarathiKalanjiyam/tam_ilakiyam/tree/master/Colle
 
 - Now i consider i have a pdf; the text are in the Vanavil Format; Open PDF at Adobe Reader; Then click Document Properties from File menu
   
-  ![](screenshots/2024-04-16-13-34-49-image.png)
-
-- Go to Fonts tab as below
+  ![](screenshots/2024-04-23-13-52-50-image.png)
+  
+  Go to Fonts tab as below
 
 ![](screenshots/2024-04-16-13-36-28-image.png)
 
 - In the screen Vanavil font is available so i assumed text was created using Vanavil Font.
 
 - Then i select the Page Content from the needed page; like below copy the text and past it to Notepad++
-  
-  ![](screenshots/2024-04-16-13-40-54-image.png)
 
-- After past the text at Notepad++ it seems as below
+- For examble take this file tamiltacesamples.rtf i open it in word. and see the document some letters are not in correct font. So I try to copy as like below
   
-  ![](screenshots/2024-04-16-13-42-23-image.png)
+  ![](screenshots/2024-04-23-13-42-49-image.png)
+  
+  After past the text at Notepad++ it seems as below
+
+- ![](screenshots/2024-04-16-13-42-23-image.png)
 
 - After past the text seems as below
   
-  ![](screenshots/2024-04-16-13-43-58-image.png)
+  ![](screenshots/2024-04-23-13-44-01-image.png)
 
 - We already know the PDF text formated using Vanavil Font; So here I give command to our plugin convert Vanavil Font to UTF8.
 
+- In our exable the Word document contains TACE encoding so i click Tace2UTF8 command from menu as above
+
+- ![](screenshots/2024-04-23-13-47-25-image.png)
+
 - ToDo the conversion Select Text then go to AnyTaFont2UTF8 plugin menu
-  ![](screenshots/2024-04-16-13-48-01-image.png)
 
 - Our Plugin change the text to UTF8 encoding; 
   
-  ![](screenshots/2024-04-16-13-52-53-image.png)
+  ![](screenshots/2024-04-23-13-48-27-image.png)
 
 - This is our Plugin magic; If you think this is worth means you can share this plugin link to Others.
 
