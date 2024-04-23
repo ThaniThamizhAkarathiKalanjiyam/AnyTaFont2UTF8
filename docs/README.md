@@ -155,7 +155,7 @@ https://github.com/ThaniThamizhAkarathiKalanjiyam/tam_ilakiyam/tree/master/Colle
 
 ## 11. License
 
-[AnyTaFont2UTF8 Plugin for Notepad++](https://github.com/ThaniThamizhAkarathiKalanjiyam/AnyTaFont2UTF8) © 2009-2024 by [Pitchaimuthu M](https://wp.me/14QRl) is licensed under [Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1)![](https://chooser-beta.creativecommons.org/img/cc-logo.f0ab4ebe.svg)![](https://chooser-beta.creativecommons.org/img/cc-by.21b728bb.svg)![](https://chooser-beta.creativecommons.org/img/cc-sa.d1572b71.svg)
+AnyTaFont2UTF8 Plugin for Notepad++ © 2009-2024 by Pitchaimuthu M is licensed under Creative Commons Attribution-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/
 
 ### You are free to:
 
