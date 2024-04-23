@@ -1,0 +1,37 @@
+Notepad++ v8.6.5 bug-fixes & new enhancements:
+
+ 1. Fix "Replace All" action not notifying plugins of modification regression by adding NPPN_GLOBALMODIFIED.
+ 2. Fix plugins not receiving some Scintilla notification types regression.
+ 3. Fix Shortcut Mapper pontential crash problem.
+ 4. Fix period backup pontential crash due to the dead lock.
+ 5. Fix NUL characters file corruption after power outrages.
+ 6. Remedy losing session problem after power outrages.
+ 7. Fix URLs are not detected after a "Replace All" regression.
+ 8. Notify user while saving failure due to hardware problem.
+ 9. Update to scintilla 5.4.3 (from 5.4.1) & Lexilla 5.3.1.
+10. Support template literal (template strings) in JavaScript & make `back-quoted strings` more readable.  
+11. Add support for Change History in the text, besides in the margin. Also, make Change History color configurable.
+12. Fix NPPM_RELOADFILE API return wrong result issue.
+13. Enhance Shortcut Mapper filter to find command items more easily
+14. Prevent typing control characters into document & make it optional.
+15. Fix possible no-GUI state when using systray.
+16. Make context menu popup location at current text position when invoked via keyboard.
+17. Fix Notepad++ blocked when closed minimized or from systray.
+18. Fix python wrong decorator attribute colors & add "ATTRIBUTE" color in styles.xml.model.
+19. Fix Mouse Wheel Scrolling in Shortcut Mapper & reduce also the memory use.
+
+
+Get more info on
+https://notepad-plus-plus.org/downloads/v8.6.5/
+
+
+Included plugins:
+
+1.  NppExport v0.4
+2.  Converter v4.6
+3.  Mime Tool v3.1
+
+
+Updater (Installer only):
+
+* WinGUp (for Notepad++) v5.2.8
